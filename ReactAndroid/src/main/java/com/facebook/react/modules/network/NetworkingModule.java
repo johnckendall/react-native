@@ -14,6 +14,9 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.GuardedAsyncTask;
@@ -56,6 +59,9 @@ public final class NetworkingModule extends ReactContextBaseJavaModule {
     mClient = client;
     mShuttingDown = false;
     mDefaultUserAgent = defaultUserAgent;
+    CookieManager cookieManager = new CookieManager();
+    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
+    mClient.setCookieHandler(cookieManager);
   }
 
   /**
